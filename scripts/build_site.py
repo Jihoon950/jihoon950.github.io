@@ -2,9 +2,11 @@
 from pathlib import Path
 import json
 import html
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 d = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
+style_version = hashlib.sha256((ROOT / "styles.css").read_bytes()).hexdigest()[:12]
 e = lambda value: html.escape(str(value), quote=True)
 tags = lambda values: "".join(f"<span>{e(v)}</span>" for v in values)
 author_html = lambda value: e(value).replace('Jihoon Lee','<strong>Jihoon Lee</strong>').replace('J. Lee','<strong>J. Lee</strong>')
@@ -66,7 +68,7 @@ page=f"""<!doctype html>
 <meta name="theme-color" content="#f5f7fc"><meta property="og:type" content="website"><meta property="og:title" content="Jihoon Lee — Wireless Networks & Intelligent Systems">
 <meta property="og:description" content="Academic portfolio · Yonsei University · Semantic communication, GPU sharing and AI-and-RAN.">{canonical}
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v={style_version}">
 <script type="application/ld+json">{schema}</script><script src="site.js" defer></script></head>
 <body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a href="#top" class="wordmark" aria-label="Jihoon Lee home">JL<span>.</span></a>

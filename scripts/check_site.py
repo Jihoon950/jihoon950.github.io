@@ -16,7 +16,7 @@ page=Page();page.feed(source)
 assert len(page.ids)==len(set(page.ids)),"Duplicate IDs"
 for link in page.links:
     if link.startswith("#"):assert link[1:] in page.ids,link
-    elif ":" not in link:assert (ROOT/link.split("#")[0]).is_file(),link
+    elif ":" not in link:assert (ROOT/link.split("#")[0].split("?")[0]).is_file(),link
 assert not re.search("[가-힣]",source),"Non-English site copy"
 assert "010-" not in source and "dennis9508" not in source
 assert 'lang="en"' in source
