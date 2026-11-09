@@ -24,7 +24,8 @@
         "NVIDIA H100"
       ],
       "link": "#work-in-progress",
-      "link_label": "View the ongoing manuscript"
+      "link_label": "View the ongoing manuscript",
+      "figure": "assets/research-gpu.svg"
     },
     {
       "id": "semantic",
@@ -36,8 +37,9 @@
         "Semantic fidelity",
         "Language models"
       ],
-      "link": "#submitted-manuscripts",
-      "link_label": "View submitted manuscripts"
+      "link": "#publications",
+      "link_label": "Explore related publications",
+      "figure": "assets/research-semantic.svg"
     },
     {
       "id": "aircons",
@@ -50,7 +52,8 @@
         "Over-the-air computation"
       ],
       "link": "https://doi.org/10.1109/TWC.2024.3451703",
-      "link_label": "Read the TWC paper"
+      "link_label": "Read the TWC paper",
+      "figure": "assets/research-aircons.svg"
     },
     {
       "id": "beam",
@@ -63,7 +66,8 @@
         "MAC design"
       ],
       "link": "https://2023.ictc.org/media?key=site%2Fictc2023a%2Fabs%2FF3-7.pdf",
-      "link_label": "Read the workshop paper"
+      "link_label": "Read the workshop paper",
+      "figure": "assets/research-beam.svg"
     }
   ],
   "education": [
@@ -81,6 +85,28 @@
     }
   ],
   "publications": [
+    {
+      "id": "htokcom-tcom",
+      "status": "submitted",
+      "title": "Hierarchical Token Communication: Semantics-Aware Representation, Protection, and Recovery",
+      "authors": "Jihoon Lee, Seungeun Oh, Jihong Park, Seong-Lyun Kim, and Seung-Woo Ko",
+      "venue": "IEEE Transactions on Communications",
+      "status_text": "Submitted",
+      "type": "journal",
+      "year": 2026,
+      "details": "Submitted"
+    },
+    {
+      "id": "langsem-wcl",
+      "status": "submitted",
+      "title": "Dual-Stage Channel-Posterior Integration for MLM-Aided Token Communications",
+      "authors": "Hyelin Nam, Jihoon Lee, Seung-Woo Ko, Jinho Choi, and Seong-Lyun Kim",
+      "venue": "IEEE Wireless Communications Letters",
+      "status_text": "Submitted",
+      "type": "journal",
+      "year": 2026,
+      "details": "Submitted"
+    },
     {
       "id": "lee2026htokcom",
       "type": "conference",
@@ -171,16 +197,6 @@
   ],
   "projects": [
     {
-      "period": "Ongoing",
-      "title": "RAN-Aware Adaptive GPU Sharing for AI-and-RAN Systems",
-      "description": "NVIDIA H100 testbed integrating OAI and NVIDIA Aerial/cuPHY for concurrent RAN processing and AI inference. The research compares MIG, MPS, and CUDA Green Contexts and uses RAN workload information to route AI requests between shared and disjoint GPU execution paths.",
-      "tags": [
-        "H100 testbed",
-        "OAI / Aerial",
-        "CUDA Green Contexts"
-      ]
-    },
-    {
       "period": "Apr 2024 – Present",
       "title": "Development of a 5G-A vRAN Research Platform",
       "description": "An integrated research platform that standardizes RU, DU, and CU interfaces and supports software-controlled, virtualized Open RAN systems.",
@@ -259,29 +275,14 @@
   ],
   "manuscripts": [
     {
-      "id": "htokcom-tcom",
-      "status": "submitted",
-      "title": "Hierarchical Token Communication: Semantics-Aware Representation, Protection, and Recovery",
-      "authors": "Jihoon Lee, Seungeun Oh, Jihong Park, Seong-Lyun Kim, and Seung-Woo Ko",
-      "venue": "IEEE Transactions on Communications",
-      "status_text": "Submitted"
-    },
-    {
-      "id": "langsem-wcl",
-      "status": "submitted",
-      "title": "Dual-Stage Channel-Posterior Integration for MLM-Aided Token Communications",
-      "authors": "Hyelin Nam, Jihoon Lee, Seung-Woo Ko, Jinho Choi, and Seong-Lyun Kim",
-      "venue": "IEEE Wireless Communications Letters",
-      "status_text": "Submitted"
-    },
-    {
       "id": "gpu-mobicom",
       "status": "planned",
       "title": "RAN-Aware Adaptive GPU Sharing for AI-and-RAN Systems",
       "authors": "J. Lee, Y. Jo, Y. Lim, J. Kim, C. Lee, and S.-L. Kim",
       "venue": "MobiCom 2027",
-      "status_text": "To be submitted to MobiCom 2027"
+      "status_text": "In preparation · Target: MobiCom 2027"
     }
   ],
-  "photo": "assets/jihoon-lee.jpg"
+  "photo": "assets/jihoon-lee.jpg",
+  "figma_url": "https://www.figma.com/design/LtWOK0zR7GdSeaKhLr0zi7?node-id=2-2"
 }

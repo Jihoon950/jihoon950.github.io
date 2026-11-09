@@ -9,7 +9,7 @@ An English research portfolio for Jihoon Lee, Ph.D. student at Yonsei University
 Static HTML, CSS, and JavaScript. GitHub Pages serves the committed files directly.
 No Node build, theme runtime, database, or paid hosting is required.
 
-- Research illustrations in original inline SVG
+- Editable Figma research illustrations exported as outlined SVG
 - Publication filters, BibTeX citations, and citation download
 - Responsive navigation and reduced-motion support
 - Public English CV as a three-page PDF
@@ -53,9 +53,10 @@ keeps the static files unchanged.
 
 Professional content is adapted from the supplied CV and research portfolio.
 Korean domestic-conference and patent titles are labeled as English translations.
-Published and accepted international papers are listed together, with accepted
-work explicitly marked. Submitted manuscripts and work in progress have separate
-sections. Submission status follows the author's confirmation in November 2026.
+Published, accepted, and submitted international papers share one publication
+list, with accepted and submitted work explicitly marked. Manuscripts in
+preparation have a subsection under Publications. Submission status follows
+the author's confirmation in November 2026.
 The planned MobiCom 2027 manuscript is not listed as submitted or accepted.
 The public CV contains institutional contact details; the original application
 documents are not part of this repository.
@@ -70,3 +71,8 @@ Original implementation informed by these academic website structures:
 
 No theme source code is copied. Web typography uses Manrope and IBM Plex Mono
 from Google Fonts, with local system fallbacks.
+
+Research illustrations are editable in [Figma](https://www.figma.com/design/LtWOK0zR7GdSeaKhLr0zi7?node-id=2-2).
+The four `assets/research-*.svg` files are exported directly from those frames,
+with text outlined for consistent rendering. They are conceptual schematics,
+not experimental result plots.
