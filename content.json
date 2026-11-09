@@ -1,0 +1,50 @@
+{
+  "name": "Jihoon Lee",
+  "role": "Ph.D. Student in Electrical & Electronic Engineering",
+  "institution": "Yonsei University",
+  "lab": "Robotic and Mobile Networks Laboratory (RAMO)",
+  "advisor": "Prof. Seong-Lyun Kim",
+  "email": "jhlee@ramo.yonsei.ac.kr",
+  "orcid": "0009-0008-5012-5721",
+  "lab_url": "https://www.ramoyonsei.com/",
+  "location": "Seoul, South Korea",
+  "updated": "November 2026",
+  "site_url": "https://jihoon950.github.io/",
+  "intro": "I study how wireless networks can support reliable coordination and intelligent services. My research spans vehicle-to-everything communication, 6G beam management, and semantic communication.",
+  "about": "I am a Ph.D. student at Yonsei University, advised by Prof. Seong-Lyun Kim in the Robotic and Mobile Networks Laboratory. I combine analytical modeling, algorithm design, and system-level simulation to study communication under mobility and uncertainty. My recent interests include reliable token transmission and the integration of AI services with virtualized radio access networks.",
+  "research": [
+    {"id":"aircons","label":"Connected mobility","title":"Coordinating vehicles over the air.","description":"Joint communication and control for vehicle platoons. AirCons exploits wireless signal superposition to share aggregate state information without individual channel-state feedback.","tags":["V2X","Distributed control","Over-the-air computation"],"link":"https://doi.org/10.1109/TWC.2024.3451703","link_label":"Read the TWC paper"},
+    {"id":"beam","label":"6G air interface","title":"Keeping beams aligned in motion.","description":"Position-aware MAC design and stochastic-geometry analysis of beam misalignment, with a focus on access probability, beamwidth, and the trade-off between alignment overhead and throughput.","tags":["Beam management","Stochastic geometry","MAC design"],"link":"https://2023.ictc.org/media?key=site%2Fictc2023a%2Fabs%2FF3-7.pdf","link_label":"Read the workshop paper"},
+    {"id":"semantic","label":"Semantic communication","title":"Protecting meaning, beyond bits.","description":"Semantic-similarity-based token clustering, bit mapping, and power allocation for reliable communication over noisy channels. I also explore the interaction between AI inference and radio access networks.","tags":["Token communication","AI-native networks","Open RAN"],"link":"#projects","link_label":"Explore related projects"}
+  ],
+  "education":[
+    {"period":"Mar 2021 – Present","degree":"Ph.D. Program, Electrical & Electronic Engineering","institution":"Yonsei University","detail":"RAMO Laboratory · Advisor: Prof. Seong-Lyun Kim"},
+    {"period":"Mar 2014 – Feb 2021","degree":"B.S., Electrical & Electronic Engineering","institution":"Yonsei University","detail":"Seoul, South Korea"}
+  ],
+  "publications":[
+    {"id":"lee2024aircons","type":"journal","year":2024,"title":"Enabling Distributed Control of Vehicle Platooning via Over-the-Air Consensus","authors":"Jihoon Lee, Yonghoon Jang, Hansol Kim, Seong-Lyun Kim, and Seung-Woo Ko","venue":"IEEE Transactions on Wireless Communications","details":"Vol. 23, No. 11, pp. 17205–17221","url":"https://doi.org/10.1109/TWC.2024.3451703","link_label":"DOI","bibtex":"@article{lee2024aircons,\n  author = {Lee, Jihoon and Jang, Yonghoon and Kim, Hansol and Kim, Seong-Lyun and Ko, Seung-Woo},\n  title = {Enabling Distributed Control of Vehicle Platooning via Over-the-Air Consensus},\n  journal = {IEEE Transactions on Wireless Communications},\n  year = {2024},\n  volume = {23},\n  number = {11},\n  pages = {17205--17221},\n  doi = {10.1109/TWC.2024.3451703}\n}"},
+    {"id":"lee2023aircons","type":"conference","year":2023,"title":"Over-the-Air Consensus for Distributed Vehicle Platooning Control","authors":"Jihoon Lee, Yonghoon Jang, Hansol Kim, Seong-Lyun Kim, and Seung-Woo Ko","venue":"IEEE International Conference on Communications (ICC)","details":"Rome, Italy · pp. 5965–5971","url":"https://doi.org/10.1109/ICC45041.2023.10279484","link_label":"DOI","bibtex":"@inproceedings{lee2023aircons,\n  author = {Lee, Jihoon and Jang, Yonghoon and Kim, Hansol and Kim, Seong-Lyun and Ko, Seung-Woo},\n  title = {Over-the-Air Consensus for Distributed Vehicle Platooning Control},\n  booktitle = {IEEE International Conference on Communications (ICC)},\n  year = {2023},\n  pages = {5965--5971},\n  doi = {10.1109/ICC45041.2023.10279484}\n}"},
+    {"id":"lee2023beam","type":"conference","year":2023,"title":"Stochastic Geometry Analysis of Position aided Beam Management","authors":"Jihoon Lee, Seung-Woo Ko, and Seong-Lyun Kim","venue":"ICTC Workshop on Post MIMO","details":"Jeju, South Korea","url":"https://2023.ictc.org/media?key=site%2Fictc2023a%2Fabs%2FF3-7.pdf","link_label":"Paper","bibtex":"@inproceedings{lee2023beam,\n  author = {Lee, Jihoon and Ko, Seung-Woo and Kim, Seong-Lyun},\n  title = {Stochastic Geometry Analysis of Position aided Beam Management},\n  booktitle = {ICTC Workshop on Post MIMO},\n  year = {2023}\n}"}
+  ],
+  "domestic":[
+    {"year":2025,"title":"A Token-Based Approach to Highly Reliable Semantic Communication","authors":"Jihoon Lee et al.","venue":"KICS Winter Conference","format":"Oral presentation"},
+    {"year":2023,"title":"An Over-the-Air Consensus Algorithm for Distributed Vehicle Platooning Control","authors":"Jihoon Lee, Seung-Woo Ko, and Seong-Lyun Kim","venue":"JCCI","format":"Oral presentation"},
+    {"year":2021,"title":"Reinforcement-Learning-Based Resource Reallocation Control in Vehicular Networks","authors":"Jihoon Lee et al.","venue":"KICS Conference Proceedings","format":"Conference paper"},
+    {"year":2021,"title":"Position-Aware MAC Design for mmWave Vehicular Communications","authors":"Jihoon Lee, Seungeun Oh, Jinhyuk Choi, and Seong-Lyun Kim","venue":"JCCI","format":"Oral presentation"},
+    {"year":2020,"title":"Single-Channel Sharing in Massive IoT Using Zigbee","authors":"Jihoon Lee et al.","venue":"KIEES Summer Conference","format":"Poster presentation"}
+  ],
+  "projects":[
+    {"period":"Apr 2024 – Present","title":"Development of a 5G-A vRAN Research Platform","description":"An integrated research platform that standardizes RU, DU, and CU interfaces and supports software-controlled, virtualized Open RAN systems.","tags":["Open RAN","vRAN"]},
+    {"period":"Dec 2024 – Apr 2025","title":"Fundamental Technologies for Semantic Communication","description":"Research on token-based SLM–LLM interaction to improve communication efficiency and inference accuracy.","tags":["Semantic communication","SLM–LLM"]},
+    {"period":"Dec 2021 – Dec 2023","title":"Sub-THz Augmented Routing and Transmission for 6G","description":"Research on routing and transmission foundations for next-generation sub-THz communication systems.","tags":["6G","Sub-THz"]},
+    {"period":"Sep 2020 – Dec 2021","title":"High-Accuracy Positioning-Enabled MIMO for 5G-V2X","description":"A hardware/software testbed project for position-aided MIMO transmission and networking in 5G vehicle-to-everything services.","tags":["V2X","MIMO","Positioning"]}
+  ],
+  "patents":[
+    {"title":"Apparatus and Method for Distributed-Consensus-Based Vehicle Platooning Control","inventors":"Jihoon Lee and Seong-Lyun Kim","number":"10-2023-0009373","status":"Application"},
+    {"title":"Method and Apparatus for Empty-Bottle Classification and Quantity Estimation Using Multi-Camera Sequential Machine Vision","inventors":"Co-inventor","number":"10-2613465","status":"Granted"},
+    {"title":"Method and Apparatus for Position-Information-Based Vehicular Communication","inventors":"Seungeun Oh, Jihoon Lee, and Seong-Lyun Kim","number":"10-2425933","status":"Granted"},
+    {"title":"Method and Apparatus for Resource Reallocation Control in Vehicular Networks","inventors":"Seungeun Oh, Jihoon Lee, and Seong-Lyun Kim","number":"10-2433577","status":"Granted"}
+  ],
+  "tools":["MATLAB","Python","System-level simulation","Stochastic geometry","Resource optimization"],
+  "languages":["Korean · Native","English · Fluent"]
+}
