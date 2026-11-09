@@ -23,8 +23,8 @@
         "GPU sharing",
         "NVIDIA H100"
       ],
-      "link": "#work-in-progress",
-      "link_label": "View the ongoing manuscript",
+      "link": "#demo-ai-ran-amm-2026",
+      "link_label": "Watch the 90-second demo",
       "figure": "assets/research-gpu.svg"
     },
     {
@@ -284,5 +284,24 @@
     }
   ],
   "photo": "assets/jihoon-lee.jpg",
-  "figma_url": "https://www.figma.com/design/LtWOK0zR7GdSeaKhLr0zi7?node-id=2-2"
+  "figma_url": "https://www.figma.com/design/LtWOK0zR7GdSeaKhLr0zi7?node-id=2-2",
+  "postdoc_statement": "I am exploring postdoctoral opportunities in wireless systems, AI-and-RAN, and semantic communication.",
+  "demonstrations": [
+    {
+      "id": "ai-ran-amm-2026",
+      "title": "RAN-Aware Adaptive GPU Sharing for AI-and-RAN",
+      "authors": "Jihoon Lee, Yoonseo Jo, Yeonsub Lim, Jinhyuk Kim, Changmin Lee, Chan-Byoung Chae, and Seong-Lyun Kim",
+      "event": "AI-RAN Alliance All-Member Meeting 2026",
+      "date": "November 11–12, 2026",
+      "location": "Yonsei University, Seoul, South Korea",
+      "status": "scheduled",
+      "status_text": "Scheduled demonstration",
+      "description": "An NVIDIA H100 testbed for concurrent 5G PHY processing and AI inference. RAN workload information guides AI execution between shared and disjoint GPU SM sets using CUDA Green Contexts.",
+      "video": "assets/ai-ran-demo-2026.mp4",
+      "poster": "assets/ai-ran-demo-2026-poster.png",
+      "duration": "90 seconds",
+      "language": "English subtitles",
+      "event_url": "https://ai-ran-summit.org/"
+    }
+  ]
 }
