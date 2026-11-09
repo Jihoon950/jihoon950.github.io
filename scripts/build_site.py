@@ -25,48 +25,25 @@ hero_art = """<svg viewBox="0 0 580 540" role="img" aria-labelledby="network-tit
 <g font-family="monospace" font-size="10" letter-spacing="2" fill="#697a9c"><text x="22" y="30">COMMUNICATION × INTELLIGENCE</text><text x="355" y="520">CONNECTED SYSTEMS</text></g>
 </svg>"""
 
-diagrams = {
-"gpu": """<svg viewBox="0 0 360 190" role="img" aria-label="RAN workload information routes AI inference to shared or disjoint GPU resources">
-<rect x="20" y="25" width="110" height="39" rx="8" fill="white" stroke="#a9b9d7"/><text x="75" y="49" text-anchor="middle" font-family="monospace" font-size="11" fill="#354f7a">RAN workload</text>
-<path d="M130 45H180V81M180 81L120 106M180 81L255 106" fill="none" stroke="#2f5ef4" stroke-width="2"/><circle cx="180" cy="81" r="7" fill="#2f5ef4"/>
-<rect x="50" y="107" width="133" height="42" rx="8" fill="#2f5ef4"/><rect x="198" y="107" width="116" height="42" rx="8" fill="white" stroke="#a9b9d7"/>
-<text x="116" y="133" text-anchor="middle" font-family="monospace" font-size="11" fill="white">Shared GPU SMs</text><text x="256" y="133" text-anchor="middle" font-family="monospace" font-size="11" fill="#354f7a">Disjoint SMs</text>
-<text x="180" y="177" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1" fill="#617293">RAN STATE · AI ROUTING · GPU SHARING</text></svg>""",
-"aircons": """<svg viewBox="0 0 360 190" role="img" aria-label="Three vehicles coordinating through a shared wireless signal">
-<path d="M25 141H335M25 151H335" stroke="#bcc9df"/><path d="M45 98Q180-20 315 98" stroke="#2f5ef4" stroke-width="1.5" fill="none" stroke-dasharray="4 6"/>
-<path d="M105 96Q180 26 255 96" stroke="#2f5ef4" fill="none"/><circle cx="180" cy="43" r="18" fill="#2f5ef4"/><text x="180" y="49" text-anchor="middle" fill="white" font-family="serif" font-size="22">Σ</text>
-<g fill="white" stroke="#354f7a" stroke-width="1.5"><rect x="28" y="105" width="76" height="28" rx="8"/><rect x="142" y="105" width="76" height="28" rx="8"/><rect x="256" y="105" width="76" height="28" rx="8"/><path d="M43 105L53 91H80L90 105M157 105L167 91H194L204 105M271 105L281 91H308L318 105"/></g>
-<g fill="#354f7a"><circle cx="46" cy="134" r="6"/><circle cx="86" cy="134" r="6"/><circle cx="160" cy="134" r="6"/><circle cx="200" cy="134" r="6"/><circle cx="274" cy="134" r="6"/><circle cx="314" cy="134" r="6"/></g>
-<path d="M112 119H134M226 119H248" stroke="#2f5ef4" stroke-width="2"/><text x="180" y="177" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1" fill="#617293">SHARED CHANNEL · COLLECTIVE STATE</text></svg>""",
-"beam": """<svg viewBox="0 0 360 190" role="img" aria-label="A directional wireless beam tracking a moving receiver">
-<path d="M52 132L276 33L307 88Z" fill="#2f5ef4" opacity=".1"/><path d="M52 132L276 33M52 132L307 88" stroke="#8fa9f8" stroke-width="1.5"/><path d="M52 132L300 142L291 181Z" fill="#2f5ef4" opacity=".05"/>
-<path d="M240 26Q331 89 288 165" fill="none" stroke="#98a8c6" stroke-dasharray="4 5"/>
-<path d="M52 96V155M37 155L52 113L67 155M43 131H61" stroke="#354f7a" stroke-width="2" fill="none"/><circle cx="52" cy="96" r="5" fill="#2f5ef4"/>
-<circle cx="280" cy="64" r="12" fill="white" stroke="#2f5ef4" stroke-width="2"/><circle cx="280" cy="64" r="4" fill="#2f5ef4"/>
-<path d="M52 132L280 64" stroke="#2f5ef4" stroke-dasharray="4 5"/><text x="166" y="113" font-family="serif" font-style="italic" fill="#2f5ef4" font-size="20">θ</text>
-<text x="180" y="177" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1" fill="#617293">POSITION · ALIGNMENT · THROUGHPUT</text></svg>""",
-"semantic": """<svg viewBox="0 0 360 190" role="img" aria-label="Tokens grouped by meaning and transmitted through a channel">
-<g fill="white" stroke="#a9b9d7"><rect x="24" y="40" width="63" height="28" rx="7"/><rect x="24" y="81" width="63" height="28" rx="7"/><rect x="24" y="122" width="63" height="28" rx="7"/></g>
-<g font-family="monospace" font-size="11" fill="#526a94" text-anchor="middle"><text x="55" y="58">token</text><text x="55" y="99">token</text><text x="55" y="140">token</text></g>
-<path d="M92 54L136 95M92 95H136M92 136L136 95M224 95H279" stroke="#9cafda" fill="none" stroke-width="1.5"/>
-<rect x="137" y="51" width="86" height="87" rx="21" fill="#2f5ef4"/><g fill="white"><circle cx="166" cy="78" r="5"/><circle cx="190" cy="80" r="5"/><circle cx="178" cy="99" r="5"/><circle cx="161" cy="116" r="5"/><circle cx="198" cy="111" r="5"/></g>
-<rect x="280" y="69" width="55" height="52" rx="13" fill="white" stroke="#a9b9d7"/><path d="M293 95L303 104L323 85" stroke="#2f5ef4" stroke-width="2" fill="none"/>
-<text x="180" y="177" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1" fill="#617293">TOKENS · STRUCTURE · MEANING</text></svg>"""
+figure_alts = {
+    "gpu": "RAN workload monitoring guides AI inference toward shared GPU SMs at low load and disjoint SMs at high load.",
+    "semantic": "Semantic token groups map to prefix and suffix bits, followed by context-aware recovery after transmission.",
+    "aircons": "Vehicle states combine over the wireless channel; the recovered neighbor mean supports local vehicle control.",
+    "beam": "A transmitter aligns a narrow directional beam with a moving receiver.",
 }
-
-research = "".join(f"""<article class="research-card"><div class="diagram">{diagrams[r['id']]}</div>
+research = "".join(f"""<article class="research-card"><div class="diagram"><img src="{e(r['figure'])}" alt="{e(figure_alts[r['id']])}" width="1000" height="560" loading="lazy"></div>
 <div class="card-body"><p class="eyebrow">{i:02d} / {e(r['label'])}</p><h3>{e(r['title'])}</h3><p>{e(r['description'])}</p>
 <div class="tags">{tags(r['tags'])}</div><a class="text-link" href="{e(r['link'])}">{e(r['link_label'])} <span aria-hidden="true">↗</span></a></div></article>""" for i,r in enumerate(d["research"],1))
 
 publications = "".join(f"""<article class="publication" data-publication="{p['type']}" data-status="{p['status']}">
 <div class="pub-year">{p['year']}<span>{'Journal' if p['type']=='journal' else 'Conference'}</span></div>
-<div class="pub-body">{'<p class="pub-status accepted">Accepted</p>' if p['status']=='accepted' else ''}<h3>{('<a href="'+e(p['url'])+'">'+e(p['title'])+'</a>') if p.get('url') else e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p>
-<p class="venue">{e(p['venue'])}</p><p class="pub-details">{e(p['details'])}</p>
-<div class="pub-actions">{('<a href="'+e(p['url'])+'">'+e(p['link_label'])+' <span aria-hidden="true">↗</span></a>') if p.get('url') else ''}<button type="button" data-cite="bib-{p['id']}" aria-label="Cite {e(p['title'])}">Cite <span aria-hidden="true">↗</span></button></div>
-<template id="bib-{p['id']}">{e(p['bibtex'])}</template></div></article>""" for p in d["publications"])
+<div class="pub-body">{('<p class="pub-status '+p['status']+'">'+p['status'].capitalize()+'</p>') if p['status'] in ('accepted','submitted') else ''}<h3>{('<a href="'+e(p['url'])+'">'+e(p['title'])+'</a>') if p.get('url') else e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p>
+<p class="venue">{e(p['venue'])}</p>{('<p class="pub-details">'+e(p['details'])+'</p>') if p['status']!='submitted' else ''}
+<div class="pub-actions">{('<a href="'+e(p['url'])+'">'+e(p['link_label'])+' <span aria-hidden="true">↗</span></a>') if p.get('url') else ''}{('<button type="button" data-cite="bib-'+p['id']+'" aria-label="Cite '+e(p['title'])+'">Cite <span aria-hidden="true">↗</span></button><template id="bib-'+p['id']+'">'+e(p['bibtex'])+'</template>') if p.get('bibtex') else ''}</div>
+</div></article>""" for p in d["publications"])
 
 def manuscript_rows(status):
-    return ''.join(f'''<article class="publication manuscript" data-status="{p['status']}"><div class="pub-year"><span>{'Submitted' if status=='submitted' else 'In progress'}</span></div><div class="pub-body"><h3>{e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p><p class="venue">{e(p['venue'])}</p><p class="pub-status">{e(p['status_text'])}</p></div></article>''' for p in d['manuscripts'] if p['status']==status)
+    return ''.join(f'''<article class="publication manuscript" data-status="{p['status']}"><div class="pub-year"><span>In preparation</span></div><div class="pub-body"><h3>{e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p><p class="pub-status">{e(p['status_text'])}</p></div></article>''' for p in d['manuscripts'] if p['status']==status)
 
 pub_counts={key:sum(p['type']==key for p in d['publications']) for key in ['journal','conference']}
 
@@ -103,12 +80,11 @@ page=f"""<!doctype html>
 <div class="hero-bottom"><span>Based in Seoul, South Korea</span><a href="#research">Scroll to explore <span aria-hidden="true">↓</span></a><span>SEMANTIC COMMUNICATION / AI-AND-RAN</span></div></section>
 <section class="research-section section-shell" id="research"><div class="section-heading"><div><p class="eyebrow">01 / Research directions</p><h2>Networks that move.<br>Signals that mean more.</h2></div><p>I work at the intersection of wireless communication, distributed control, and AI.</p></div><div class="research-grid">{research}</div></section>
 <section class="publications-section" id="publications"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / Publications & ongoing work</p><h2>Research, in progress<br>and in print.</h2></div><a class="text-link" href="assets/publications.bib" download>Publication BibTeX <span aria-hidden="true">↓</span></a></div>
-<h3 class="publication-group-title">Published & accepted</h3>
+<h3 class="publication-group-title">Published, accepted & submitted</h3>
 <div class="filters" role="group" aria-label="Filter publications"><button type="button" data-filter="all" aria-pressed="true">All <span>{len(d['publications']):02d}</span></button><button type="button" data-filter="journal" aria-pressed="false">Journal <span>{pub_counts['journal']:02d}</span></button><button type="button" data-filter="conference" aria-pressed="false">Conference <span>{pub_counts['conference']:02d}</span></button></div>
 <p class="sr-only" id="filter-status" role="status" aria-live="polite">{len(d['publications'])} publications shown</p>
 <div class="publication-list">{publications}</div>
-<section id="submitted-manuscripts" class="manuscript-group" aria-labelledby="submitted-heading"><h3 id="submitted-heading" class="publication-group-title">Submitted manuscripts</h3>{manuscript_rows('submitted')}</section>
-<section id="work-in-progress" class="manuscript-group" aria-labelledby="progress-heading"><h3 id="progress-heading" class="publication-group-title">Work in progress</h3>{manuscript_rows('planned')}</section>
+<section id="work-in-progress" class="manuscript-group" aria-labelledby="progress-heading"><h3 id="progress-heading" class="publication-group-title">In preparation</h3>{manuscript_rows('planned')}</section>
 <details class="domestic"><summary>Domestic conferences <span>05 <span aria-hidden="true">＋</span></span></summary><p class="translation-note">English translations of Korean titles.</p><ol>{domestic}</ol></details></div></section>
 <section class="about-section section-shell" id="about"><div class="about-intro"><p class="eyebrow">03 / Background</p><h2>A researcher<br>in motion.</h2><p>{e(d['about'])}</p><a class="text-link" href="{e(d['lab_url'])}">Meet the RAMO Lab <span aria-hidden="true">↗</span></a>
 <div class="toolkit"><h3>Research toolkit</h3><div class="tags">{tags(d['tools'])}</div><p class="languages">{' &nbsp; / &nbsp; '.join(e(x) for x in d['languages'])}</p></div></div><div class="education"><p class="eyebrow">Education</p>{education}<a class="button secondary" href="assets/Jihoon_Lee_CV.pdf" download>Full academic CV <span aria-hidden="true">↓</span></a></div></section>
@@ -121,5 +97,5 @@ page=f"""<!doctype html>
 </body></html>"""
 (ROOT/"index.html").write_text(page,encoding="utf-8")
 (ROOT/"assets").mkdir(exist_ok=True)
-(ROOT/"assets"/"publications.bib").write_text("\n\n".join(p["bibtex"] for p in d["publications"])+"\n",encoding="utf-8")
+(ROOT/"assets"/"publications.bib").write_text("\n\n".join(p["bibtex"] for p in d["publications"] if p.get('bibtex'))+"\n",encoding="utf-8")
 print("Built index.html and assets/publications.bib")

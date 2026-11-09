@@ -46,8 +46,10 @@ story=[
 ]
 for x in d["education"]:
     story.append(item(x["degree"],esc(x["institution"])+" · "+esc(x["period"]),esc(x["detail"])))
-story.append(section("International publications - published & accepted"))
+story.append(section("Publications"))
 for i,x in enumerate(d["publications"],1):
+    if i == 4:
+        story += [PageBreak(),section("Publications (continued)")]
     citation=[
         p("["+str(i)+"] "+esc(x["title"]),"item"),
         p(authors(x["authors"]),"small"),
@@ -57,11 +59,7 @@ for i,x in enumerate(d["publications"],1):
         citation.append(p('<link href="'+escape(x["url"],quote=True)+'" color="#305ff2">'+esc(x["url"] if "doi.org" in x["url"] else "Conference paper")+"</link>","small"))
     citation.append(Spacer(1,8))
     story.append(KeepTogether(citation))
-story += [PageBreak(),section("Submitted manuscripts")]
-for x in d['manuscripts']:
-    if x['status']=='submitted':
-        story.append(item(x['title'],authors(x['authors']),'<i>'+esc(x['venue'])+'</i> · <b>Submitted</b>'))
-story.append(section("Work in progress"))
+story.append(section("In preparation"))
 for x in d['manuscripts']:
     if x['status']=='planned':
         story.append(item(x['title'],authors(x['authors']),'<b>'+esc(x['status_text'])+'</b>'))
