@@ -20,13 +20,14 @@ styles={
  "body":base,
  "small":ParagraphStyle("small",parent=base,fontSize=8.2,leading=11.5,textColor=muted),
  "title":ParagraphStyle("title",parent=base,fontName="Arial-Bold",fontSize=35,leading=40,spaceAfter=8),
- "section":ParagraphStyle("section",parent=base,fontName="Arial-Bold",fontSize=11.8,leading=16,textColor=blue,spaceBefore=17,spaceAfter=9),
+ "section":ParagraphStyle("section",parent=base,fontName="Arial-Bold",fontSize=11.8,leading=16,textColor=blue,spaceBefore=17,spaceAfter=9,keepWithNext=True),
  "item":ParagraphStyle("item",parent=base,fontName="Arial-Bold",fontSize=9.4,leading=13.1,spaceAfter=3),
 }
 def clean(s): return str(s).replace("–","-").replace("—","-").replace("‑","-")
 def p(s,style="body"): return Paragraph(clean(s),styles[style])
 def esc(s): return escape(clean(s))
 def section(s): return p(s.upper(),"section")
+def authors(s): return esc(s).replace("Jihoon Lee","<b>Jihoon Lee</b>").replace("J. Lee","<b>J. Lee</b>")
 def item(title,detail,extra=None):
     content=[p(esc(title),"item"),p(detail,"small")]
     if extra: content.append(p(extra,"small"))
@@ -40,31 +41,42 @@ story=[
  p('<link href="https://orcid.org/'+d["orcid"]+'" color="#305ff2">ORCID '+d["orcid"]+'</link>'+((' · <link href="'+d["site_url"]+'" color="#305ff2">'+d["site_url"].replace("https://","").rstrip("/")+"</link>") if d["site_url"] else ""),"small"),
  section("Research interests"),
  p(esc(d["intro"])),
- p("<b>Focus:</b> V2X and distributed control; over-the-air computation; position-aided beam management; semantic communication; AI-enabled radio access networks.","small"),
+ p("<b>Focus:</b> Semantic token communication; RAN-aware GPU sharing; AI-and-RAN systems; V2X and distributed control; position-aided beam management.","small"),
  section("Education")
 ]
 for x in d["education"]:
     story.append(item(x["degree"],esc(x["institution"])+" · "+esc(x["period"]),esc(x["detail"])))
-story.append(section("International publications"))
+story.append(section("International publications - published & accepted"))
 for i,x in enumerate(d["publications"],1):
-    story.append(KeepTogether([
+    citation=[
         p("["+str(i)+"] "+esc(x["title"]),"item"),
-        p(esc(x["authors"]).replace("Jihoon Lee","<b>Jihoon Lee</b>"),"small"),
+        p(authors(x["authors"]),"small"),
         p("<i>"+esc(x["venue"])+"</i>, "+str(x["year"])+". "+esc(x["details"])+".","small"),
-        p('<link href="'+escape(x["url"],quote=True)+'" color="#305ff2">'+esc(x["url"] if "doi.org" in x["url"] else "Conference paper")+"</link>","small"),
-        Spacer(1,10)
-    ]))
-story += [section("Technical skills & languages"),p(esc(", ".join(d["tools"])),"small"),p("Korean: Native · English: Fluent","small"),PageBreak(),section("Domestic conferences")]
-story.append(p("English translations of Korean titles.","small"))
-for x in d["domestic"]:
-    story.append(item(str(x["year"])+" · "+x["title"],esc(x["authors"])+" · "+esc(x["venue"])+" · "+esc(x["format"])))
+    ]
+    if x.get("url"):
+        citation.append(p('<link href="'+escape(x["url"],quote=True)+'" color="#305ff2">'+esc(x["url"] if "doi.org" in x["url"] else "Conference paper")+"</link>","small"))
+    citation.append(Spacer(1,8))
+    story.append(KeepTogether(citation))
+story += [PageBreak(),section("Submitted manuscripts")]
+for x in d['manuscripts']:
+    if x['status']=='submitted':
+        story.append(item(x['title'],authors(x['authors']),'<i>'+esc(x['venue'])+'</i> · <b>Submitted</b>'))
+story.append(section("Work in progress"))
+for x in d['manuscripts']:
+    if x['status']=='planned':
+        story.append(item(x['title'],authors(x['authors']),'<b>'+esc(x['status_text'])+'</b>'))
 story.append(section("Research projects"))
 for x in d["projects"]:
     story.append(item(x["title"],esc(x["period"])+" · "+esc(x["description"])))
+story += [PageBreak(),section("Domestic conferences")]
+story.append(p("English translations of Korean titles.","small"))
+for x in d["domestic"]:
+    story.append(item(str(x["year"])+" · "+x["title"],esc(x["authors"])+" · "+esc(x["venue"])+" · "+esc(x["format"])))
 story.append(section("Patents"))
 story.append(p("Selected Korean patents. Titles shown in English translation.","small"))
 for x in d["patents"]:
     story.append(item(x["title"],"KR "+esc(x["number"])+" · "+esc(x["status"])+" · "+esc(x["inventors"])))
+story += [section("Technical skills & languages"),p(esc(", ".join(d["tools"])),"small"),p("Korean: Native · English: Fluent","small")]
 
 def footer(canvas,doc):
     w,h=A4

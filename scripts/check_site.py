@@ -22,8 +22,19 @@ assert "010-" not in source and "dennis9508" not in source
 assert 'lang="en"' in source
 import pymupdf
 pdf=pymupdf.open(ROOT/"assets"/"Jihoon_Lee_CV.pdf")
-assert len(pdf)==2
+assert len(pdf)==3
 text="".join(p.get_text() for p in pdf)
 assert "Jihoon Lee" in text and "Technical skills".upper() in text
 assert "010-" not in text
-print("PASS: local files, anchors, unique IDs, English copy, public contact data, 2-page PDF")
+d=json.loads((ROOT/'content.json').read_text(encoding='utf-8'))
+assert [p['status'] for p in d['manuscripts']]==['submitted','submitted','planned']
+assert len(d['publications'])==4 and d['publications'][0]['status']=='accepted'
+for x in d['publications']+d['manuscripts']:
+    assert x['title'] in source,x['title']
+    assert x['title'] in re.sub(r'\s+',' ',text),x['title']
+assert 'To be submitted to MobiCom 2027' in text
+assert 'Semantics-Aware Representation, Protection, and Recovery' in text
+assert 'Hyelin Nam, Jihoon Lee, Seung-Woo Ko, Jinho Choi, and Seong-Lyun Kim' in re.sub(r'\s+',' ',text)
+assert source.count('data-status="submitted"')==2 and source.count('data-status="planned"')==1
+assert 'H_TokCOM.pdf' not in source and 'Langsem.pdf' not in source
+print("PASS: files, anchors, English copy, public contact data, 3-page CV, exact titles/authors and distinct publication statuses")

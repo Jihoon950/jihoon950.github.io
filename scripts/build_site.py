@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 d = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
 e = lambda value: html.escape(str(value), quote=True)
 tags = lambda values: "".join(f"<span>{e(v)}</span>" for v in values)
+author_html = lambda value: e(value).replace('Jihoon Lee','<strong>Jihoon Lee</strong>').replace('J. Lee','<strong>J. Lee</strong>')
 
 hero_art = """<svg viewBox="0 0 580 540" role="img" aria-labelledby="network-title">
 <title id="network-title">An illustrative network connecting mobility, wireless communication, and AI</title>
@@ -25,6 +26,12 @@ hero_art = """<svg viewBox="0 0 580 540" role="img" aria-labelledby="network-tit
 </svg>"""
 
 diagrams = {
+"gpu": """<svg viewBox="0 0 360 190" role="img" aria-label="RAN workload information routes AI inference to shared or disjoint GPU resources">
+<rect x="20" y="25" width="110" height="39" rx="8" fill="white" stroke="#a9b9d7"/><text x="75" y="49" text-anchor="middle" font-family="monospace" font-size="11" fill="#354f7a">RAN workload</text>
+<path d="M130 45H180V81M180 81L120 106M180 81L255 106" fill="none" stroke="#2f5ef4" stroke-width="2"/><circle cx="180" cy="81" r="7" fill="#2f5ef4"/>
+<rect x="50" y="107" width="133" height="42" rx="8" fill="#2f5ef4"/><rect x="198" y="107" width="116" height="42" rx="8" fill="white" stroke="#a9b9d7"/>
+<text x="116" y="133" text-anchor="middle" font-family="monospace" font-size="11" fill="white">Shared GPU SMs</text><text x="256" y="133" text-anchor="middle" font-family="monospace" font-size="11" fill="#354f7a">Disjoint SMs</text>
+<text x="180" y="177" text-anchor="middle" font-family="monospace" font-size="10" letter-spacing="1" fill="#617293">RAN STATE · AI ROUTING · GPU SHARING</text></svg>""",
 "aircons": """<svg viewBox="0 0 360 190" role="img" aria-label="Three vehicles coordinating through a shared wireless signal">
 <path d="M25 141H335M25 151H335" stroke="#bcc9df"/><path d="M45 98Q180-20 315 98" stroke="#2f5ef4" stroke-width="1.5" fill="none" stroke-dasharray="4 6"/>
 <path d="M105 96Q180 26 255 96" stroke="#2f5ef4" fill="none"/><circle cx="180" cy="43" r="18" fill="#2f5ef4"/><text x="180" y="49" text-anchor="middle" fill="white" font-family="serif" font-size="22">Σ</text>
@@ -51,12 +58,17 @@ research = "".join(f"""<article class="research-card"><div class="diagram">{diag
 <div class="card-body"><p class="eyebrow">{i:02d} / {e(r['label'])}</p><h3>{e(r['title'])}</h3><p>{e(r['description'])}</p>
 <div class="tags">{tags(r['tags'])}</div><a class="text-link" href="{e(r['link'])}">{e(r['link_label'])} <span aria-hidden="true">↗</span></a></div></article>""" for i,r in enumerate(d["research"],1))
 
-publications = "".join(f"""<article class="publication" data-publication="{p['type']}">
+publications = "".join(f"""<article class="publication" data-publication="{p['type']}" data-status="{p['status']}">
 <div class="pub-year">{p['year']}<span>{'Journal' if p['type']=='journal' else 'Conference'}</span></div>
-<div class="pub-body"><h3><a href="{e(p['url'])}">{e(p['title'])}</a></h3><p class="authors">{e(p['authors']).replace('Jihoon Lee','<strong>Jihoon Lee</strong>')}</p>
+<div class="pub-body">{'<p class="pub-status accepted">Accepted</p>' if p['status']=='accepted' else ''}<h3>{('<a href="'+e(p['url'])+'">'+e(p['title'])+'</a>') if p.get('url') else e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p>
 <p class="venue">{e(p['venue'])}</p><p class="pub-details">{e(p['details'])}</p>
-<div class="pub-actions"><a href="{e(p['url'])}">{e(p['link_label'])} <span aria-hidden="true">↗</span></a><button type="button" data-cite="bib-{p['id']}" aria-label="Cite {e(p['title'])}">Cite <span aria-hidden="true">↗</span></button></div>
+<div class="pub-actions">{('<a href="'+e(p['url'])+'">'+e(p['link_label'])+' <span aria-hidden="true">↗</span></a>') if p.get('url') else ''}<button type="button" data-cite="bib-{p['id']}" aria-label="Cite {e(p['title'])}">Cite <span aria-hidden="true">↗</span></button></div>
 <template id="bib-{p['id']}">{e(p['bibtex'])}</template></div></article>""" for p in d["publications"])
+
+def manuscript_rows(status):
+    return ''.join(f'''<article class="publication manuscript" data-status="{p['status']}"><div class="pub-year"><span>{'Submitted' if status=='submitted' else 'In progress'}</span></div><div class="pub-body"><h3>{e(p['title'])}</h3><p class="authors">{author_html(p['authors'])}</p><p class="venue">{e(p['venue'])}</p><p class="pub-status">{e(p['status_text'])}</p></div></article>''' for p in d['manuscripts'] if p['status']==status)
+
+pub_counts={key:sum(p['type']==key for p in d['publications']) for key in ['journal','conference']}
 
 domestic = "".join(f"""<li><span class="domestic-year">{p['year']}</span><div><h4>{e(p['title'])}</h4><p>{e(p['authors'])}<br>{e(p['venue'])} · {e(p['format'])}</p></div></li>""" for p in d["domestic"])
 education = "".join(f"""<article class="education-item"><p class="eyebrow">{e(item['period'])}</p><h3>{e(item['degree'])}</h3><p>{e(item['institution'])}</p><p class="muted">{e(item['detail'])}</p></article>""" for item in d["education"])
@@ -68,13 +80,14 @@ canonical=f'<link rel="canonical" href="{e(url)}"><meta property="og:url" conten
 qr_button='<button id="share-button" class="text-link" type="button">Share via QR <span aria-hidden="true">↗</span></button>' if url else ""
 qr_dialog=f"""<dialog id="share-dialog" class="share-dialog"><button class="dialog-close" data-close type="button" aria-label="Close QR code">×</button><p class="eyebrow">Connect & share</p><h2>Take this page with you.</h2><img src="assets/jihoon-lee-qr.svg" width="240" height="240" alt="QR code linking to {e(url)}"><p><a href="{e(url)}">{e(url)}</a></p><a class="button primary" href="assets/jihoon-lee-qr.png" download>Download QR code ↓</a></dialog>""" if url else ""
 schema=json.dumps({"@context":"https://schema.org","@type":"Person","name":d["name"],"jobTitle":d["role"],"affiliation":{"@type":"CollegeOrUniversity","name":d["institution"]},"url":url,"sameAs":[f"https://orcid.org/{d['orcid']}",d["lab_url"]]},ensure_ascii=False)
+profile_visual = f'<div class="portrait-frame"><img class="profile-photo" src="{e(d["photo"])}" alt="Portrait of Jihoon Lee" width="1417" height="1890" fetchpriority="high"></div><div class="visual-caption"><span>JIHOON LEE</span><span>YONSEI UNIVERSITY</span></div>' if d.get('photo') else hero_art
 
 page=f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jihoon Lee — Wireless Networks & Intelligent Systems</title>
-<meta name="description" content="Jihoon Lee is a Ph.D. student at Yonsei University researching V2X, 6G beam management, semantic communication, and intelligent wireless networks.">
+<meta name="description" content="Jihoon Lee is a Ph.D. student at Yonsei University researching semantic token communication, GPU sharing for AI-and-RAN, and wireless control.">
 <meta name="theme-color" content="#f5f7fc"><meta property="og:type" content="website"><meta property="og:title" content="Jihoon Lee — Wireless Networks & Intelligent Systems">
-<meta property="og:description" content="Academic portfolio · Yonsei University · V2X, 6G and semantic communication.">{canonical}
+<meta property="og:description" content="Academic portfolio · Yonsei University · Semantic communication, GPU sharing and AI-and-RAN.">{canonical}
 <link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">{schema}</script><script src="site.js" defer></script></head>
@@ -86,13 +99,16 @@ page=f"""<!doctype html>
 <h1>Jihoon<br><span>Lee.</span></h1><p class="hero-role">Ph.D. Student · Electrical & Electronic Engineering</p>
 <h2>Connecting mobility,<br>meaning & intelligence.</h2><p class="hero-description">{e(d['intro'])}</p>
 <div class="hero-actions"><a class="button primary" href="#research">Explore my research <span aria-hidden="true">↗</span></a><a class="button secondary" href="assets/Jihoon_Lee_CV.pdf" download>Download CV <span aria-hidden="true">↓</span></a></div></div>
-<div class="hero-visual">{hero_art}<div class="visual-caption"><span>WIRELESS NETWORKS</span><span>INTELLIGENT SYSTEMS</span></div></div>
-<div class="hero-bottom"><span>Based in Seoul, South Korea</span><a href="#research">Scroll to explore <span aria-hidden="true">↓</span></a><span>V2X / 6G / SEMANTIC AI</span></div></section>
+<div class="hero-visual portrait-visual">{profile_visual}</div>
+<div class="hero-bottom"><span>Based in Seoul, South Korea</span><a href="#research">Scroll to explore <span aria-hidden="true">↓</span></a><span>SEMANTIC COMMUNICATION / AI-AND-RAN</span></div></section>
 <section class="research-section section-shell" id="research"><div class="section-heading"><div><p class="eyebrow">01 / Research directions</p><h2>Networks that move.<br>Signals that mean more.</h2></div><p>I work at the intersection of wireless communication, distributed control, and AI.</p></div><div class="research-grid">{research}</div></section>
-<section class="publications-section" id="publications"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / Selected publications</p><h2>Ideas, in print.</h2></div><a class="text-link" href="assets/publications.bib" download>Download BibTeX <span aria-hidden="true">↓</span></a></div>
-<div class="filters" role="group" aria-label="Filter publications"><button type="button" data-filter="all" aria-pressed="true">All <span>03</span></button><button type="button" data-filter="journal" aria-pressed="false">Journal <span>01</span></button><button type="button" data-filter="conference" aria-pressed="false">Conference <span>02</span></button></div>
-<p class="sr-only" id="filter-status" role="status" aria-live="polite">3 publications shown</p>
+<section class="publications-section" id="publications"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / Publications & ongoing work</p><h2>Research, in progress<br>and in print.</h2></div><a class="text-link" href="assets/publications.bib" download>Publication BibTeX <span aria-hidden="true">↓</span></a></div>
+<h3 class="publication-group-title">Published & accepted</h3>
+<div class="filters" role="group" aria-label="Filter publications"><button type="button" data-filter="all" aria-pressed="true">All <span>{len(d['publications']):02d}</span></button><button type="button" data-filter="journal" aria-pressed="false">Journal <span>{pub_counts['journal']:02d}</span></button><button type="button" data-filter="conference" aria-pressed="false">Conference <span>{pub_counts['conference']:02d}</span></button></div>
+<p class="sr-only" id="filter-status" role="status" aria-live="polite">{len(d['publications'])} publications shown</p>
 <div class="publication-list">{publications}</div>
+<section id="submitted-manuscripts" class="manuscript-group" aria-labelledby="submitted-heading"><h3 id="submitted-heading" class="publication-group-title">Submitted manuscripts</h3>{manuscript_rows('submitted')}</section>
+<section id="work-in-progress" class="manuscript-group" aria-labelledby="progress-heading"><h3 id="progress-heading" class="publication-group-title">Work in progress</h3>{manuscript_rows('planned')}</section>
 <details class="domestic"><summary>Domestic conferences <span>05 <span aria-hidden="true">＋</span></span></summary><p class="translation-note">English translations of Korean titles.</p><ol>{domestic}</ol></details></div></section>
 <section class="about-section section-shell" id="about"><div class="about-intro"><p class="eyebrow">03 / Background</p><h2>A researcher<br>in motion.</h2><p>{e(d['about'])}</p><a class="text-link" href="{e(d['lab_url'])}">Meet the RAMO Lab <span aria-hidden="true">↗</span></a>
 <div class="toolkit"><h3>Research toolkit</h3><div class="tags">{tags(d['tools'])}</div><p class="languages">{' &nbsp; / &nbsp; '.join(e(x) for x in d['languages'])}</p></div></div><div class="education"><p class="eyebrow">Education</p>{education}<a class="button secondary" href="assets/Jihoon_Lee_CV.pdf" download>Full academic CV <span aria-hidden="true">↓</span></a></div></section>
