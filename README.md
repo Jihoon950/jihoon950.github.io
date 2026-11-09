@@ -12,7 +12,7 @@ No Node build, theme runtime, database, or paid hosting is required.
 - Research illustrations in original inline SVG
 - Publication filters, BibTeX citations, and citation download
 - Responsive navigation and reduced-motion support
-- Public English CV as a two-page PDF
+- Public English CV as a three-page PDF
 - Shareable QR assets once the final Pages URL is configured
 
 ## Update content
@@ -53,7 +53,10 @@ keeps the static files unchanged.
 
 Professional content is adapted from the supplied CV and research portfolio.
 Korean domestic-conference and patent titles are labeled as English translations.
-Only published international papers are listed in the selected publications.
+Published and accepted international papers are listed together, with accepted
+work explicitly marked. Submitted manuscripts and work in progress have separate
+sections. Submission status follows the author's confirmation in November 2026.
+The planned MobiCom 2027 manuscript is not listed as submitted or accepted.
 The public CV contains institutional contact details; the original application
 documents are not part of this repository.
 
