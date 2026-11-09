@@ -9,7 +9,7 @@ class Page(HTMLParser):
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
         if "id" in a:self.ids.append(a["id"])
-        for key in ["href","src"]:
+        for key in ["href","src","poster"]:
             if key in a:self.links.append(a[key])
 source=(ROOT/"index.html").read_text(encoding="utf-8")
 page=Page();page.feed(source)
@@ -42,4 +42,13 @@ assert 'Semantics-Aware Representation, Protection, and Recovery' in text
 assert 'Hyelin Nam, Jihoon Lee, Seung-Woo Ko, Jinho Choi, and Seong-Lyun Kim' in re.sub(r'\s+',' ',text)
 assert source.count('data-status="submitted"')==2 and source.count('data-status="planned"')==1
 assert 'H_TokCOM.pdf' not in source and 'Langsem.pdf' not in source
+assert d['postdoc_statement'] in source and d['postdoc_statement'] in re.sub(r'\s+',' ',text)
+assert len(d['demonstrations'])==1
+demo=d['demonstrations'][0]
+assert demo['title'] in source and demo['title'] in re.sub(r'\s+',' ',text)
+assert demo['authors'] in re.sub(r'\s+',' ',text)
+assert demo['status_text'] in source and demo['status_text'] in text
+assert '<video controls playsinline preload="none"' in source
+assert 'autoplay' not in source
+assert d['research'][0]['link']=='#demo-'+demo['id']
 print("PASS: files, anchors, English copy, public contact data, 3-page CV, exact titles/authors and distinct publication statuses")

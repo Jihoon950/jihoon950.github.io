@@ -7,6 +7,7 @@ import hashlib
 ROOT = Path(__file__).resolve().parents[1]
 d = json.loads((ROOT / "content.json").read_text(encoding="utf-8"))
 style_version = hashlib.sha256((ROOT / "styles.css").read_bytes()).hexdigest()[:12]
+pdf_version = hashlib.sha256((ROOT / "assets/Jihoon_Lee_CV.pdf").read_bytes()).hexdigest()[:12]
 e = lambda value: html.escape(str(value), quote=True)
 tags = lambda values: "".join(f"<span>{e(v)}</span>" for v in values)
 author_html = lambda value: e(value).replace('Jihoon Lee','<strong>Jihoon Lee</strong>').replace('J. Lee','<strong>J. Lee</strong>')
@@ -54,6 +55,14 @@ education = "".join(f"""<article class="education-item"><p class="eyebrow">{e(it
 projects = "".join(f"""<article class="project"><p class="project-period">{e(item['period'])}</p><div><h3>{e(item['title'])}</h3><p>{e(item['description'])}</p><div class="tags">{tags(item['tags'])}</div></div><span class="project-index" aria-hidden="true">{i:02d}</span></article>""" for i,item in enumerate(d["projects"],1))
 patents = "".join(f"""<article class="patent"><p class="eyebrow"><span class="patent-status">{e(item['status'])}</span> KR {e(item['number'])}</p><h3>{e(item['title'])}</h3><p>{e(item['inventors'])}</p></article>""" for item in d["patents"])
 
+demos = "".join(f'''<article class="demo-card" id="demo-{e(x['id'])}">
+<div class="demo-copy"><p class="demo-status">{e(x['status_text'])}</p><h3>{e(x['title'])}</h3>
+<p class="demo-authors">{author_html(x['authors'])}</p><p class="demo-event">{e(x['event'])}<br>{e(x['date'])} · {e(x['location'])}</p>
+<p class="demo-description">{e(x['description'])}</p>
+<div class="demo-links"><a class="text-link" href="{e(x['video'])}">Open video <span aria-hidden="true">↗</span></a><a class="text-link" href="{e(x['event_url'])}">Event program <span aria-hidden="true">↗</span></a></div></div>
+<figure class="demo-video"><video controls playsinline preload="none" width="1920" height="1080" poster="{e(x['poster'])}" aria-label="{e(x['title'])}: 90-second demonstration with English subtitles"><source src="{e(x['video'])}" type="video/mp4">Your browser does not support embedded video. <a href="{e(x['video'])}">Open the demo video</a>.</video><figcaption>{e(x['duration'])} · {e(x['language'])}</figcaption></figure>
+</article>''' for x in d.get('demonstrations',[]))
+
 url=d["site_url"].rstrip("/")+"/" if d["site_url"] else ""
 canonical=f'<link rel="canonical" href="{e(url)}"><meta property="og:url" content="{e(url)}">' if url else ""
 qr_button='<button id="share-button" class="text-link" type="button">Share via QR <span aria-hidden="true">↗</span></button>' if url else ""
@@ -73,27 +82,29 @@ page=f"""<!doctype html>
 <body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="header-inner"><a href="#top" class="wordmark" aria-label="Jihoon Lee home">JL<span>.</span></a>
 <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Toggle navigation">Menu <span aria-hidden="true">☰</span></button>
-<nav id="navigation" aria-label="Main navigation"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#contact" class="nav-contact">Let’s connect <span aria-hidden="true">↗</span></a></nav></div></header>
+<nav id="navigation" aria-label="Main navigation"><a href="#research">Research</a><a href="#demonstrations">Demos</a><a href="#publications">Publications</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#contact" class="nav-contact">Let’s connect <span aria-hidden="true">↗</span></a></nav></div></header>
 <main id="main"><section class="hero section-shell" id="top"><div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> {e(d['institution'])} · RAMO Lab</p>
 <h1>Jihoon<br><span>Lee.</span></h1><p class="hero-role">Ph.D. Student · Electrical & Electronic Engineering</p>
 <h2>Connecting mobility,<br>meaning & intelligence.</h2><p class="hero-description">{e(d['intro'])}</p>
-<div class="hero-actions"><a class="button primary" href="#research">Explore my research <span aria-hidden="true">↗</span></a><a class="button secondary" href="assets/Jihoon_Lee_CV.pdf" download>Download CV <span aria-hidden="true">↓</span></a></div></div>
+<aside class="opportunity-note" aria-label="Postdoctoral opportunities"><p class="eyebrow">Postdoctoral opportunities</p><p>{e(d['postdoc_statement'])}</p><a href="mailto:{e(d['email'])}" class="text-link">Get in touch <span aria-hidden="true">↗</span></a></aside>
+<div class="hero-actions"><a class="button primary" href="#research">Explore my research <span aria-hidden="true">↗</span></a><a class="button secondary" href="assets/Jihoon_Lee_CV.pdf?v={pdf_version}" download>Download CV <span aria-hidden="true">↓</span></a></div></div>
 <div class="hero-visual portrait-visual">{profile_visual}</div>
 <div class="hero-bottom"><span>Based in Seoul, South Korea</span><a href="#research">Scroll to explore <span aria-hidden="true">↓</span></a><span>SEMANTIC COMMUNICATION / AI-AND-RAN</span></div></section>
 <section class="research-section section-shell" id="research"><div class="section-heading"><div><p class="eyebrow">01 / Research directions</p><h2>Networks that move.<br>Signals that mean more.</h2></div><p>I work at the intersection of wireless communication, distributed control, and AI.</p></div><div class="research-grid">{research}</div></section>
-<section class="publications-section" id="publications"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / Publications & ongoing work</p><h2>Research, in progress<br>and in print.</h2></div><a class="text-link" href="assets/publications.bib" download>Publication BibTeX <span aria-hidden="true">↓</span></a></div>
+<section class="demos-section" id="demonstrations"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / Demonstrations</p><h2>Research in action.</h2></div><p>Working systems, from the testbed to the demo floor.</p></div>{demos}</div></section>
+<section class="publications-section" id="publications"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">03 / Publications & ongoing work</p><h2>Research, in progress<br>and in print.</h2></div><a class="text-link" href="assets/publications.bib" download>Publication BibTeX <span aria-hidden="true">↓</span></a></div>
 <h3 class="publication-group-title">Published, accepted & submitted</h3>
 <div class="filters" role="group" aria-label="Filter publications"><button type="button" data-filter="all" aria-pressed="true">All <span>{len(d['publications']):02d}</span></button><button type="button" data-filter="journal" aria-pressed="false">Journal <span>{pub_counts['journal']:02d}</span></button><button type="button" data-filter="conference" aria-pressed="false">Conference <span>{pub_counts['conference']:02d}</span></button></div>
 <p class="sr-only" id="filter-status" role="status" aria-live="polite">{len(d['publications'])} publications shown</p>
 <div class="publication-list">{publications}</div>
 <section id="work-in-progress" class="manuscript-group" aria-labelledby="progress-heading"><h3 id="progress-heading" class="publication-group-title">In preparation</h3>{manuscript_rows('planned')}</section>
 <details class="domestic"><summary>Domestic conferences <span>05 <span aria-hidden="true">＋</span></span></summary><p class="translation-note">English translations of Korean titles.</p><ol>{domestic}</ol></details></div></section>
-<section class="about-section section-shell" id="about"><div class="about-intro"><p class="eyebrow">03 / Background</p><h2>A researcher<br>in motion.</h2><p>{e(d['about'])}</p><a class="text-link" href="{e(d['lab_url'])}">Meet the RAMO Lab <span aria-hidden="true">↗</span></a>
-<div class="toolkit"><h3>Research toolkit</h3><div class="tags">{tags(d['tools'])}</div><p class="languages">{' &nbsp; / &nbsp; '.join(e(x) for x in d['languages'])}</p></div></div><div class="education"><p class="eyebrow">Education</p>{education}<a class="button secondary" href="assets/Jihoon_Lee_CV.pdf" download>Full academic CV <span aria-hidden="true">↓</span></a></div></section>
-<section class="projects-section" id="projects"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">04 / Research projects</p><h2>From models<br>to connected systems.</h2></div><p>Research across the wireless stack, from physical-layer coordination to AI-enabled networks.</p></div><div class="project-list">{projects}</div></div></section>
-<section class="patents-section section-shell" id="patents"><div class="section-heading"><div><p class="eyebrow">05 / Intellectual property</p><h2>Ideas into applications.</h2></div><p>Selected Korean patents.<br>Titles shown in English translation.</p></div><div class="patent-grid">{patents}</div></section>
-<section class="contact-section" id="contact"><div class="section-shell"><p class="eyebrow">06 / Get in touch</p><h2>Let’s connect<br>the next idea<span>.</span></h2><a class="contact-email" href="mailto:{e(d['email'])}">{e(d['email'])} <span aria-hidden="true">↗</span></a>
-<div class="contact-bottom"><p>{e(d['lab'])}<br>{e(d['institution'])} · {e(d['location'])}</p><div class="contact-links"><a href="https://orcid.org/{e(d['orcid'])}">ORCID ↗</a><a href="{e(d['lab_url'])}">RAMO Lab ↗</a><a href="assets/Jihoon_Lee_CV.pdf">CV PDF ↗</a>{qr_button}</div></div></div></section>
+<section class="about-section section-shell" id="about"><div class="about-intro"><p class="eyebrow">04 / Background</p><h2>A researcher<br>in motion.</h2><p>{e(d['about'])}</p><a class="text-link" href="{e(d['lab_url'])}">Meet the RAMO Lab <span aria-hidden="true">↗</span></a>
+<div class="toolkit"><h3>Research toolkit</h3><div class="tags">{tags(d['tools'])}</div><p class="languages">{' &nbsp; / &nbsp; '.join(e(x) for x in d['languages'])}</p></div></div><div class="education"><p class="eyebrow">Education</p>{education}<a class="button secondary" href="assets/Jihoon_Lee_CV.pdf?v={pdf_version}" download>Full academic CV <span aria-hidden="true">↓</span></a></div></section>
+<section class="projects-section" id="projects"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">05 / Research projects</p><h2>From models<br>to connected systems.</h2></div><p>Research across the wireless stack, from physical-layer coordination to AI-enabled networks.</p></div><div class="project-list">{projects}</div></div></section>
+<section class="patents-section section-shell" id="patents"><div class="section-heading"><div><p class="eyebrow">06 / Intellectual property</p><h2>Ideas into applications.</h2></div><p>Selected Korean patents.<br>Titles shown in English translation.</p></div><div class="patent-grid">{patents}</div></section>
+<section class="contact-section" id="contact"><div class="section-shell"><p class="eyebrow">07 / Get in touch</p><h2>Let’s connect<br>the next idea<span>.</span></h2><a class="contact-email" href="mailto:{e(d['email'])}">{e(d['email'])} <span aria-hidden="true">↗</span></a>
+<div class="contact-bottom"><p>{e(d['lab'])}<br>{e(d['institution'])} · {e(d['location'])}</p><div class="contact-links"><a href="https://orcid.org/{e(d['orcid'])}">ORCID ↗</a><a href="{e(d['lab_url'])}">RAMO Lab ↗</a><a href="assets/Jihoon_Lee_CV.pdf?v={pdf_version}">CV PDF ↗</a>{qr_button}</div></div></div></section>
 </main><footer class="site-footer section-shell"><span>© 2026 Jihoon Lee</span><span>Last updated · {e(d['updated'])}</span><a href="#top">Back to top ↑</a></footer>
 <dialog id="citation-dialog"><button class="dialog-close" type="button" data-close aria-label="Close citation">×</button><p class="eyebrow">Reference</p><h2>Cite this work.</h2><pre id="citation-text"></pre><button type="button" class="button primary" id="copy-citation">Copy BibTeX</button></dialog>{qr_dialog}
 </body></html>"""

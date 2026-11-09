@@ -39,6 +39,8 @@ story=[
  p("Yonsei University · Robotic and Mobile Networks Laboratory (RAMO)","small"),
  p('Seoul, South Korea · <link href="mailto:'+d["email"]+'" color="#305ff2">'+d["email"]+"</link>","small"),
  p('<link href="https://orcid.org/'+d["orcid"]+'" color="#305ff2">ORCID '+d["orcid"]+'</link>'+((' · <link href="'+d["site_url"]+'" color="#305ff2">'+d["site_url"].replace("https://","").rstrip("/")+"</link>") if d["site_url"] else ""),"small"),
+ Spacer(1,8),
+ p('<b>Postdoctoral opportunities:</b> '+esc(d['postdoc_statement']),"small"),
  section("Research interests"),
  p(esc(d["intro"])),
  p("<b>Focus:</b> Semantic token communication; RAN-aware GPU sharing; AI-and-RAN systems; V2X and distributed control; position-aided beam management.","small"),
@@ -63,6 +65,11 @@ story.append(section("In preparation"))
 for x in d['manuscripts']:
     if x['status']=='planned':
         story.append(item(x['title'],authors(x['authors']),'<b>'+esc(x['status_text'])+'</b>'))
+story.append(section("Demonstrations"))
+for x in d.get('demonstrations',[]):
+    story.append(item(x['title'],authors(x['authors']),
+        '<i>'+esc(x['event'])+'</i> · '+esc(x['date'])+'<br/>'+esc(x['location'])+' · <b>'+esc(x['status_text'])+'</b>'))
+    story.append(p('<link href="'+d['site_url'].rstrip('/')+'/#demo-'+x['id']+'" color="#305ff2">Demo video (90 seconds, English subtitles)</link>',"small"))
 story.append(section("Research projects"))
 for x in d["projects"]:
     story.append(item(x["title"],esc(x["period"])+" · "+esc(x["description"])))
