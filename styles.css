@@ -28,3 +28,121 @@ dialog{border:1px solid var(--line);border-radius:12px;padding:37px;max-width:mi
 @media(max-width:1100px){.demo-card{grid-template-columns:1fr;gap:28px}.demo-copy h3{font-size:26px}.demo-video{width:100%}.demo-description{max-width:650px}}
 @media(max-width:760px){.opportunity-note{max-width:none;padding:16px 17px}.demos-section{padding:60px 0}.demo-card{padding:23px 20px;gap:25px}.demo-copy h3{font-size:24px}.demo-video figcaption{font-size:8px}}
 @media print{.opportunity-note{border:0;padding:0;background:none}.opportunity-note .text-link{display:none}.demos-section{padding:20pt 0;background:#fff}.demo-card{display:block;padding:0;border:0}.demo-video{display:none}.demo-copy h3{font-size:13pt}.demo-links{display:none}}
+
+/* Readable screen typography, shared across desktop and mobile. */
+@media screen {
+  :root { --muted: #4e5d74; }
+  body { font-size: 1rem; line-height: 1.75; }
+
+  .hero-description,
+  .section-heading > p,
+  .card-body > p:not(.eyebrow),
+  .about-intro > p:not(.eyebrow),
+  .project p:not(.project-period),
+  .opportunity-note > p:not(.eyebrow),
+  .demo-description {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .hero-description { max-width: 560px; }
+  .section-heading > p { max-width: 350px; }
+  .hero-role, .authors, .venue, .demo-authors, .demo-event,
+  .education-item > p:not(.eyebrow), .languages {
+    font-size: .9375rem;
+    line-height: 1.75;
+  }
+  .hero-role, .demo-authors, .demo-description { color: var(--muted); }
+  .authors { color: #c5cfe2; }
+  .venue { color: #a9bfff; }
+
+  nav a, .menu-toggle,
+  .button, .hero-actions .button,
+  .text-link, .card-body .text-link,
+  .publications-section .text-link, .about-intro > .text-link,
+  .opportunity-note .text-link, .opportunity-contact > span,
+  .demo-links .text-link, .contact-links a, .contact-links button,
+  .filters button, .pub-actions a, .pub-actions button {
+    font-size: .875rem;
+    line-height: 1.6;
+  }
+  nav { gap: 24px; }
+  .hero-actions { flex-wrap: wrap; }
+  .hero-actions .button { padding: 13px 18px; gap: 16px; }
+  .pub-actions { flex-wrap: wrap; }
+  .pub-actions a, .pub-actions button { padding: 8px 14px; }
+  .filters { flex-wrap: wrap; }
+  .filters button { min-height: 44px; }
+  .filters button span { font-size: .75rem; opacity: 1; }
+
+  .eyebrow, .hero .eyebrow, .card-body .eyebrow,
+  .education-item .eyebrow, .patent .eyebrow,
+  .pub-year span, .manuscript .pub-year span,
+  .tags span, .card-body .tags span, .patent-status,
+  .pub-status, .demo-status, .demo-video figcaption,
+  .visual-caption, .hero-bottom, .site-footer {
+    font-size: .75rem;
+    line-height: 1.65;
+  }
+  .eyebrow, .hero .eyebrow, .card-body .eyebrow { letter-spacing: 1px; }
+  .pub-year span, .manuscript .pub-year span { letter-spacing: .4px; }
+  .pub-status, .demo-status { padding: 6px 10px; }
+  .tags span { color: #405471; }
+  .visual-caption, .hero-bottom, .site-footer,
+  .demo-video figcaption, .patent .eyebrow { color: #52617a; }
+  .portrait-visual .visual-caption {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: .5px;
+  }
+  .hero-bottom { flex-wrap: wrap; gap: 16px 24px; }
+  .site-footer { flex-wrap: wrap; gap: 12px 24px; }
+
+  .pub-details, .domestic li p, .translation-note,
+  .education-item p.muted, .project-period,
+  .patent > p:last-child, .contact-bottom > p,
+  .share-dialog > p:not(.eyebrow) {
+    font-size: .875rem;
+    line-height: 1.8;
+  }
+  .education-item p.muted, .project-period,
+  .contact-bottom > p { color: var(--muted); }
+  .pub-details, .translation-note { color: #adbfdd; }
+  .domestic li p { color: #c0cde3; }
+  .domestic summary, .domestic h4, .toolkit h3,
+  .publication-group-title { font-size: 1rem; line-height: 1.6; }
+  .domestic-year, .domestic summary > span { font-size: .875rem; }
+  #citation-text { font-size: .875rem; line-height: 1.75; }
+  .pub-body h3 { font-size: 1.375rem; line-height: 1.5; }
+  .patent h3 { font-size: 1.1875rem; line-height: 1.55; }
+  .card-body h3 { min-height: 0; }
+  .about-intro, .education, .pub-body, .project > div,
+  .demo-copy, .hero-copy { min-width: 0; }
+}
+
+@media screen and (max-width: 1100px) {
+  nav { gap: 18px; }
+  .about-section { gap: 50px; }
+}
+
+@media screen and (max-width: 760px) {
+  nav a { padding: 14px 10px; }
+  .hero-role { max-width: none; }
+  .publication { grid-template-columns: 1fr; gap: 14px; }
+  .pub-year { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; font-size: 1.125rem; padding: 0; }
+  .pub-year span { margin-top: 0; }
+  .pub-body h3 { font-size: 1.25rem; }
+  .domestic li { grid-template-columns: 1fr; gap: 8px; }
+  .about-section { gap: 45px; }
+  .contact-bottom > p { font-size: .875rem; }
+  .contact-links { gap: 14px 22px; }
+}
+
+@media screen and (max-width: 460px) {
+  .hero h1 { font-size: clamp(84px, 28vw, 109px); }
+  .hero-actions .button { padding: 12px 14px; gap: 10px; }
+  .hero-actions { gap: 10px; }
+  .filters button { padding: 9px 12px; }
+  .card-body h3 { max-width: none; }
+  .contact-email { font-size: 1.25rem; gap: 12px; }
+}
