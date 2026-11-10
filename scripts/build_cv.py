@@ -81,7 +81,7 @@ story.append(section("Patents"))
 story.append(p("Selected Korean patents. Titles shown in English translation.","small"))
 for x in d["patents"]:
     story.append(item(x["title"],"KR "+esc(x["number"])+" · "+esc(x["status"])+" · "+esc(x["inventors"])))
-story += [section("Technical skills & languages"),p(esc(", ".join(d["tools"])),"small"),p("Korean: Native · English: Fluent","small")]
+story += [section("Technical skills & languages"),p(esc(", ".join(d["tools"])),"small"),p(esc(" · ".join(x.replace(" · ", ": ", 1) for x in d["languages"])),"small")]
 
 def footer(canvas,doc):
     w,h=A4

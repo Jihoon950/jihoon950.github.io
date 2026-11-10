@@ -86,7 +86,7 @@ page=f"""<!doctype html>
 <main id="main"><section class="hero section-shell" id="top"><div class="hero-copy"><p class="eyebrow"><span class="status-dot"></span> {e(d['institution'])} · RAMO Lab</p>
 <h1>Jihoon<br><span>Lee.</span></h1><p class="hero-role">Ph.D. Student · Electrical & Electronic Engineering</p>
 <h2>Wireless Communication and AI Systems</h2><p class="hero-description">{e(d['intro'])}</p>
-<aside class="opportunity-note" aria-label="Postdoctoral opportunities"><p class="eyebrow">Postdoctoral opportunities</p><p>{e(d['postdoc_statement'])}</p><a href="mailto:{e(d['email'])}" class="text-link">Get in touch <span aria-hidden="true">↗</span></a></aside>
+<aside class="opportunity-note" aria-label="Postdoctoral opportunities"><p class="eyebrow">Postdoctoral opportunities</p><p>{e(d['postdoc_statement'])}</p><div class="opportunity-contact"><span>Get in touch</span><a href="mailto:{e(d['email'])}" class="text-link">{e(d['email'])} <span aria-hidden="true">↗</span></a></div></aside>
 <div class="hero-actions"><a class="button primary" href="#research">Explore my research <span aria-hidden="true">↗</span></a><a class="button secondary" href="assets/Jihoon_Lee_CV.pdf?v={pdf_version}" download>Download CV <span aria-hidden="true">↓</span></a></div></div>
 <div class="hero-visual portrait-visual">{profile_visual}</div>
 <div class="hero-bottom"><span>Based in Seoul, South Korea</span><a href="#research">Scroll to explore <span aria-hidden="true">↓</span></a><span>SEMANTIC COMMUNICATION / AI-AND-RAN</span></div></section>
