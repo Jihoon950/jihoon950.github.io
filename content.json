@@ -16,7 +16,7 @@
     {
       "id": "gpu",
       "label": "Current research · AI-and-RAN",
-      "title": "Sharing GPUs with the RAN in mind.",
+      "title": "RAN-Aware GPU Sharing",
       "description": "RAN-aware routing of AI inference between shared and disjoint GPU execution contexts. On an NVIDIA H100 testbed, I study how changing RAN workloads affect GPU contention and how adaptive sharing can improve AI throughput while respecting PHY timing constraints.",
       "tags": [
         "AI-and-RAN",
@@ -30,7 +30,7 @@
     {
       "id": "semantic",
       "label": "Semantic communication",
-      "title": "Protecting meaning, beyond bits.",
+      "title": "Semantic Token Communication",
       "description": "Hierarchical token-to-bit mapping, unequal power allocation, and model-assisted recovery for reliable semantic communication. I also study how channel-posterior information can guide masked language models during token reconstruction.",
       "tags": [
         "Token communication",
@@ -44,7 +44,7 @@
     {
       "id": "aircons",
       "label": "Connected mobility",
-      "title": "Coordinating vehicles over the air.",
+      "title": "Over-the-Air Consensus for Vehicle Control",
       "description": "Joint communication and control for vehicle platoons. AirCons exploits wireless signal superposition to share aggregate state information without individual channel-state feedback.",
       "tags": [
         "V2X",
@@ -58,7 +58,7 @@
     {
       "id": "beam",
       "label": "6G air interface",
-      "title": "Keeping beams aligned in motion.",
+      "title": "Position-Aided Beam Management",
       "description": "Position-aware MAC design and stochastic-geometry analysis of beam misalignment, with a focus on access probability, beamwidth, and the trade-off between alignment overhead and throughput.",
       "tags": [
         "Beam management",
